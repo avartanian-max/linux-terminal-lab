@@ -37,5 +37,28 @@ Directories need execute permission to be traversed through with a chmod 600; th
 
   I would use permission 711 which allows the execute permission but not the read permission and without the read permission the user cant use the ls command to figure out file names so they can only access it if they know the exact name.
 
+## Shell Scripts
+
+- You write a script with #!/bin/bash but it still fails when run as ./script.sh from the cron daemon. The same script works fine when you run it manually. What’s likely wrong?
+
+If the script has variables like HOME it wont have those variables in Cron Daemon as its not in the shell terminal we are in.
+
+- A script uses read NAME but you’re piping input to it: echo "John" | ./script.sh. The script doesn’t receive the name. Why, and how would you fix it?
+
+You should accept the value of the name in the line you call the script like typing "./script.sh John"
+
+- You pass 5 arguments to a script but only use $1 and $2. You later realize you need to pass the remaining arguments to another command: some_command $@. What’s the difference between $@ and $* and when does it matter?
+
+$@ preserves each argument as a seperate word while $* joins all the arguments together in one string it matters when you are typing arguments that contain special charcters or spaces
+
+- You have a function that returns 1 on error, but your script doesn’t check the return value and continues anyway. Later, your script appears to run successfully but actually failed silently. How would you structure your script to catch errors earlier?
+
+Whenever an error would happen exit the script and return a error msg|
+
+- You write a loop: for file in *.txt; do process $file; done. If a filename has spaces in it, what breaks and how would you fix it?
+
+If the file name has spaces it may not read the file correctly instead if we do "$file"; it will read the input even with spaces so anytime we call for $file we put it in quotes.
+
+
 
   
