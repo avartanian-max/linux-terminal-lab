@@ -13,7 +13,7 @@ The file is running somewhere because as long as there is one link, the data wil
 
 All of the files have the lines because as long as one link is still there the data exists so the data will be updated and changed for all 10 new hardlinks.
 
-- You’re setting up a configuration system where a symlink in `/home/user/config` should always point to the active config in `/opt/configs/`. Why would a relative symlink break here but an absolute one wouldn’t?
+- You’re setting up a configuration system where a symlink in /home/user/config should always point to the active config in /opt/configs/. Why would a relative symlink break here but an absolute one wouldn’t?
 
 
 A relative symlink would break if the symlink gets moved to another directory while an absolute one always points to the full path so it will keep working as long as the path exists.
