@@ -80,6 +80,30 @@ Different tools report different memory concepts a process can allocate a huge a
 
 Check /var/logs/ as some applications to log to journalct1 they log their crashes elsewhere
 
+## Networking Basics
+
+- You run nc -zv server.com 8080 and it times out, but ping server.com succeeds. The server admin says the service is definitely running. What layer of the network stack is the problem at, and how would you prove it?
+
+The likely issue is at the TCP layer or firewall level since the fact that ping server.come succeeds proves that the host is reachable at the network layer to prove it test the port with nc and inspect the packets using tcpdump and check what you get back.
+
+- You compare ss -tuln and netstat -tuln output on the same system and get slightly different results. Why might this happen and which one should you trust?
+
+The tools likely gather data differently ss is a newer tool and is usually perceived as faster and the better tool.
+
+- You want to SSH to a server on port 2222, but you also need to forward a local port for development. What would your full command look like and why might this be safer than opening port 22?
+
+ssh -p 2222 -L 8080:localhost:3000 username@servername
+
+- traceroute server.com shows 20 hops but ping server.com returns in milliseconds. Something is very wrong. Is the server definitely reachable and why would traceroute show so many hops?
+
+Traceroute and ping use different packet types which can be handled different many routers prioritize ping so a long traceroute outpot isnt a sign that the server is bad in anyway.
+
+- You want to copy a 10GB file from a remote server but scp keeps timing out. What could be wrong, and what’s a more robust approach?
+
+The connection from you to the server may be bad or might be getting limitted from the download a better choice would be to do the copy in smaller segments
+
+
+
 
 
   
