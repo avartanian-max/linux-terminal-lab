@@ -59,6 +59,27 @@ Whenever an error would happen exit the script and return a error msg|
 
 If the file name has spaces it may not read the file correctly instead if we do "$file"; it will read the input even with spaces so anytime we call for $file we put it in quotes.
 
+## System Administration Basics
+
+- uptime shows a load of 8.0 on a 4-core system. What does this actually tell you about system health, and why is it not as simple as “the system is overloaded”?
+
+It tells us that there are on average 8 tasks needing the CPU and its not simple because we need more information from the CPU stats and the memory to see if the system is truely being overloaded or not.
+
+- You discover /home is 95% full. You run du -sh /home/* but the sum is way less than the total size. Where did the space go and how would you actually find it?
+
+The space could be in hidden files which in our command we would include the search to hidden files, or it could be data that was deleted but still has a process running on it keeping it alive.
+
+- You see a process in htop using 50GB of memory but ps aux shows it only allocated 2GB. How is this possible and what’s the difference between what these tools are measuring?
+Different tools report different memory concepts a process can allocate a huge amount of memory vrirtually without having it all in RAM so the difference you see is usually between virtual and resident memory and how the different tools see them.
+
+- You add an environment variable to ~/.bashrc by appending a line, but when you open a new terminal it’s not there. You double-check the file and the line is there. What’s wrong?
+  
+  The shell environment may not be reading it correctly depending on how the terminal starts bash it maybe reading ~profile instead of ~bash profile.
+
+- A service is crashing repeatedly. You check journalctl but the last log entry is from 10 minutes ago, even though you know it crashed 30 seconds ago. Where else would you look for logs and why?
+
+Check /var/logs/ as some applications to log to journalct1 they log their crashes elsewhere
+
 
 
   
