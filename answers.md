@@ -102,8 +102,17 @@ Traceroute and ping use different packet types which can be handled different ma
 
 The connection from you to the server may be bad or might be getting limitted from the download a better choice would be to do the copy in smaller segments
 
+## DNS and Name Resolution
 
+- You run nslookup google.com and get “server can’t find google.com”, but nslookup 8.8.8.8 works fine. What’s the actual problem and what’s your next debugging step?
 
+The actual problem is the DNS resolution since nslook 8.8.8.8 works we know its not connection issues so the next step would be to test do a query directly against a known DNS server and see if you can resolve the hostname.
 
+- dig google.com returns a valid IP, but your application still can’t connect. You check /etc/hosts and it has an entry for google.com pointing to 127.0.0.0. How is this possible and which takes precedence?
 
-  
+  Many applications use the system resolves which is /etc/hosts before the DNS depending on nsswitch.conf so google.com may resolve to 127.0.0.1 because the hostname resolution resolves on /etc/hosts
+
+- You can ping 8.8.8.8 successfully, but ping 8.8.8.8.in-addr.arpa fails. You also can’t resolve any hostnames. What service is broken?
+
+The DNS name resolution is broken a main tell is you can ping 8.8.8.8 but can't resolve any hostnames
+
